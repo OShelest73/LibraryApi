@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Application.Dtos;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -27,13 +28,13 @@ public class BookController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> CreateBook(Book book)
+    public async Task<ActionResult> CreateBook(BookDto book)
     {
         
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateBook(Book book)
+    public async Task<ActionResult> UpdateBook(BookDto book)
     {
         
     }
