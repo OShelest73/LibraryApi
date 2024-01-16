@@ -5,8 +5,6 @@ VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryApi", "LibraryApi\LibraryApi.csproj", "{46776F22-690F-4964-AEBA-E183B3CE976F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3F5CFCF5-F72B-4756-B4F4-08908A15DD3C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{136FADBB-DDAF-4D13-A23A-704D9D01E14D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{61878B52-6FED-4B54-873F-6D5D7BA7E0CB}"
@@ -38,11 +36,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{136FADBB-DDAF-4D13-A23A-704D9D01E14D} = {3F5CFCF5-F72B-4756-B4F4-08908A15DD3C}
-		{61878B52-6FED-4B54-873F-6D5D7BA7E0CB} = {3F5CFCF5-F72B-4756-B4F4-08908A15DD3C}
-		{6BE12AB2-8644-4010-9A45-53313F764C04} = {3F5CFCF5-F72B-4756-B4F4-08908A15DD3C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3B5C14F0-3329-4A79-8DCF-9B12DE1F7870}
