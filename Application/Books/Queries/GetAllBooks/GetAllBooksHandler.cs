@@ -1,4 +1,4 @@
-﻿using Application.Dtos;
+﻿using Application.Dtos.Book;
 using AutoMapper;
 using Domain.Abstractions;
 using Domain.Entities;

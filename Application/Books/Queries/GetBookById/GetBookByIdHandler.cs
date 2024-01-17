@@ -1,5 +1,5 @@
 ﻿using Application.Books.Queries.GetAllBooks;
-using Application.Dtos;
+using Application.Dtos.Book;
 using AutoMapper;
 using Domain.Abstractions;
 using Domain.Entities;

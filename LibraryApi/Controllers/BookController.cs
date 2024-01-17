@@ -4,7 +4,7 @@ using Application.Books.Commands.UpdateBook;
 using Application.Books.Queries.GetAllBooks;
 using Application.Books.Queries.GetBookById;
 using Application.Books.Queries.GetBookByISBN;
-using Application.Dtos;
+using Application.Dtos.Book;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
