@@ -37,14 +37,16 @@ public class BookRepository : IBookRepository
         return result;
     }
 
-    public async Task CreateBook(Book book)
+    public async Task CreateBook(string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime)
     {
+        var book = new Book(isbn, genre, description, author, borrowingTime, returnTime);
         await _dbContext.Books.AddAsync(book);
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task UpdateBook(Book book)
+    public async Task UpdateBook(int id, string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime)
     {
+        var book = new Book(id, isbn, genre, description, author, borrowingTime, returnTime);
         _dbContext.Update(book);
         await _dbContext.SaveChangesAsync();
     }
@@ -57,5 +59,10 @@ public class BookRepository : IBookRepository
             _dbContext.Remove(user);
             await _dbContext.SaveChangesAsync();
         }
+    }
+
+    public async Task<bool> IsISBNUnique(string ISBN)
+    {
+        return !await _dbContext.Books.AnyAsync(b => b.ISBN == ISBN);
     }
 }

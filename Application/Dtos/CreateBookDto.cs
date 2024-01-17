@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Application.Dtos;
 
-public class BookDto
+public class CreateBookDto
 {
-    int Id { get; set; }
     string ISBN { get; set; }
     string Genre { get; set; }
     string Description { get; set; }

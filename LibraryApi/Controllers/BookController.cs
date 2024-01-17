@@ -1,4 +1,6 @@
-﻿using Application.Dtos;
+﻿using Application.Books.Queries.GetAllBooks;
+using Application.Dtos;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -9,10 +11,17 @@ namespace LibraryApi.Controllers;
 [ApiController]
 public class BookController : ControllerBase
 {
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<>> GetAllBooks()
+    private readonly IMediator _mediator;
+
+    public BookController(IMediator mediator)
     {
-        
+        _mediator = mediator;
+    }
+
+    [HttpGet]
+    public async Task<List<BookDto>> GetAllBooks()
+    {
+        return await _mediator.Send(new GetAllBooksQuery());
     }
 
     [HttpGet("{id:int}")]
@@ -28,7 +37,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> CreateBook(BookDto book)
+    public async Task<ActionResult> CreateBook(CreateBookDto book)
     {
         
     }

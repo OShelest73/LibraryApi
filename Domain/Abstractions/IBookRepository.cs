@@ -12,7 +12,8 @@ public interface IBookRepository
     Task<List<Book>> GetAllBooks();
     Task<Book> GetBookById(int id);
     Task<Book> GetBookByISBN(string ISBN);
-    Task CreateBook(Book book);
-    Task UpdateBook(Book book);
+    Task CreateBook(string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime);
+    Task UpdateBook(int id, string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime);
     Task DeleteBook(int id);
+    Task<bool> IsISBNUnique(string ISBN);
 }

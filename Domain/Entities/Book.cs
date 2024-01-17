@@ -27,4 +27,25 @@ public class Book
         get { return ReturnTime.ToLocalTime(); }
         set { ReturnTime = value.ToUniversalTime(); }
     }
+
+    public Book(int id, string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime)
+    {
+        Id = id;
+        ISBN = isbn;
+        Genre = genre;
+        Description = description;
+        Author = author;
+        BorrowingTime = borrowingTime;
+        ReturnTime = returnTime;
+    }
+
+    public Book(string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime)
+    {
+        ISBN = isbn;
+        Genre = genre;
+        Description = description;
+        Author = author;
+        BorrowingTime = borrowingTime;
+        ReturnTime = returnTime;
+    }
 }

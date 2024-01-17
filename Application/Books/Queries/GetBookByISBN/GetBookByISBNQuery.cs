@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Books.Queries.GetAllBooks;
+namespace Application.Books.Queries.GetBookByISBN;
 
-public sealed record GetAllBooksQuery(): IRequest<List<BookDto>>;
-
+public sealed record GetBookByISBNQuery(string ISBN) : IRequest<BookDto>;
