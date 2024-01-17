@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Extensions;
 
-public static class DataAccessExtension
+public static class DependencyInjection
 {
-    public static IServiceCollection AddDataAccess(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddDataAccess(this IServiceCollection services)
     {
         var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
         var dbName = Environment.GetEnvironmentVariable("DB_NAME");
         var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
         var connectionString = $"Data Source={dbHost}; Initial Catalog={dbName}; User ID=sa; Password={dbPassword}; TrustServerCertificate=true";
         services.AddDbContext<ApplicationDbContext>(options => 
-            options.UseSqlServer(configuration.GetConnectionString(connectionString)));
+            options.UseSqlServer(connectionString));
 
         services.AddScoped<IBookRepository, BookRepository>();
 
