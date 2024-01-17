@@ -8,11 +8,11 @@ namespace Application.Dtos;
 
 public class BookDto
 {
-    int Id { get; set; }
-    string ISBN { get; set; }
-    string Genre { get; set; }
-    string Description { get; set; }
-    string Author { get; set; }
-    DateTime BorrowingTime { get; set; }
-    DateTime ReturnTime { get; set; }
+    public int Id { get; set; }
+    public string ISBN { get; set; }
+    public string Genre { get; set; }
+    public string Description { get; set; }
+    public string Author { get; set; }
+    public DateTime BorrowingTime { get; set; }
+    public DateTime ReturnTime { get; set; }
 }
