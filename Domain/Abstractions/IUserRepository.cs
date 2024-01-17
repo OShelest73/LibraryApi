@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Abstractions;
-internal interface IUserRepository
+
+public interface IUserRepository
 {
+    Task<List<User>> GetAllUsers();
+    Task CreateUser(string fullName, string email, string password);
 }

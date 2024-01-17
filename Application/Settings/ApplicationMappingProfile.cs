@@ -1,4 +1,5 @@
 ﻿using Application.Dtos.Book;
+using Application.Dtos.User;
 using AutoMapper;
 using Domain.Entities;
 using System;
@@ -14,5 +15,6 @@ public class ApplicationMappingProfile: Profile
     public ApplicationMappingProfile()
     {
         CreateMap<Book, BookDto>().ReverseMap();
+        CreateMap<User, UserDto>().ReverseMap();
     }
 }
