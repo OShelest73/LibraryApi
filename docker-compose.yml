@@ -1,9 +1,33 @@
 version: '3.4'
 
+networks:
+  backend:
+
 services:
+  libraryapidb:
+    container_name: library-api-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - 8002:1433 
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=password@12345#
+    networks:
+      - backend
+
   libraryapi:
     container_name: library-api
     image: ${DOCKER_REGISTRY-}libraryapi
     build:
       context: .
       dockerfile: LibraryApi/Dockerfile
+    ports:
+      - 8001:80
+    depends_on:
+      - libraryapidb
+    environment:
+      - DB_HOST=libraryapidb
+      - DB_NAME=LibraryApiDb
+      - DB_SA_PASSWORD=password@12345#
+    networks:
+      - backend
