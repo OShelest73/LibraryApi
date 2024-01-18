@@ -5,6 +5,7 @@ using Application.Dtos.User;
 using Application.Users.Commands.AuthenticateUser;
 using Application.Users.Commands.CreateUser;
 using Application.Users.Queries.GetAllUsers;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,10 +18,14 @@ namespace LibraryApi.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly IValidator<CreateUserCommand> _createValidator;
+    private readonly IValidator<AuthenticateUserCommand> _authenticateValidator;
 
-    public UserController(IMediator mediator)
+    public UserController(IMediator mediator, IValidator<CreateUserCommand> createValidator, IValidator<AuthenticateUserCommand> authenticateValidator)
     {
         _mediator = mediator;
+        _createValidator = createValidator;
+        _authenticateValidator = authenticateValidator;
     }
 
     [AllowAnonymous]
@@ -36,6 +41,13 @@ public class UserController : ControllerBase
     {
         var command = new CreateUserCommand(registerDto.FullName, registerDto.Email, registerDto.Password);
 
+        var result = await _createValidator.ValidateAsync(command);
+
+        if(!result.IsValid)
+        {
+            return BadRequest(result.ToDictionary());
+        }
+
         await _mediator.Send(command);
 
         return Ok();
@@ -46,6 +58,13 @@ public class UserController : ControllerBase
     public async Task<ActionResult> Login([FromBody] AuthenticationRequest authenticationRequest)
     {
         var command = new AuthenticateUserCommand(authenticationRequest.Email, authenticationRequest.Password);
+
+        var result = await _authenticateValidator.ValidateAsync(command);
+
+        if (!result.IsValid)
+        {
+            return BadRequest(result.ToDictionary());
+        }
 
         string token = await _mediator.Send(command);
 

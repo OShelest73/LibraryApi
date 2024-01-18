@@ -5,6 +5,9 @@ using Application.Books.Queries.GetAllBooks;
 using Application.Books.Queries.GetBookById;
 using Application.Books.Queries.GetBookByISBN;
 using Application.Dtos.Book;
+using Application.Users.Commands.AuthenticateUser;
+using Application.Users.Commands.CreateUser;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -19,10 +22,14 @@ namespace LibraryApi.Controllers;
 public class BookController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly IValidator<CreateBookCommand> _createValidator;
+    private readonly IValidator<UpdateBookCommand> _updateValidator;
 
-    public BookController(IMediator mediator)
+    public BookController(IMediator mediator, IValidator<CreateBookCommand> createValidator, IValidator<UpdateBookCommand> updateValidator)
     {
         _mediator = mediator;
+        _createValidator = createValidator;
+        _updateValidator = updateValidator;        
     }
 
     [HttpGet]
@@ -53,6 +60,14 @@ public class BookController : ControllerBase
             book.Author,
             book.BorrowingTime,
             book.ReturnTime);
+
+        var result = await _createValidator.ValidateAsync(command);
+
+        if (!result.IsValid)
+        {
+            return BadRequest(result.ToDictionary());
+        }
+
         await _mediator.Send(command);
 
         return Ok();
@@ -69,6 +84,14 @@ public class BookController : ControllerBase
             book.Author,
             book.BorrowingTime,
             book.ReturnTime);
+
+        var result = await _updateValidator.ValidateAsync(command);
+
+        if (!result.IsValid)
+        {
+            return BadRequest(result.ToDictionary());
+        }
+
         await _mediator.Send(command);
 
         return Ok();
