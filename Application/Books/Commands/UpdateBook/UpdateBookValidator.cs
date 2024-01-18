@@ -11,7 +11,7 @@ namespace Application.Books.Commands.UpdateBook;
 
 public sealed class UpdateBookValidator : AbstractValidator<UpdateBookCommand>
 {
-    public UpdateBookValidator(IBookRepository book)
+    public UpdateBookValidator()
     {
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.ISBN).MinimumLength(10).WithMessage("ISBN must contain at least 10 characters");

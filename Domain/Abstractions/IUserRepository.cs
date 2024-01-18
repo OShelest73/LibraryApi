@@ -10,5 +10,7 @@ namespace Domain.Abstractions;
 public interface IUserRepository
 {
     Task<List<User>> GetAllUsers();
-    Task CreateUser(string fullName, string email, string password);
+    Task<User> GetByEmail(string email);
+    Task CreateUser(string fullName, string email, string password, byte[] salt);
+    Task<bool> IsEmailUnique(string email);
 }

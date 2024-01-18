@@ -5,11 +5,13 @@ VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryApi", "LibraryApi\LibraryApi.csproj", "{46776F22-690F-4964-AEBA-E183B3CE976F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{136FADBB-DDAF-4D13-A23A-704D9D01E14D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{136FADBB-DDAF-4D13-A23A-704D9D01E14D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{61878B52-6FED-4B54-873F-6D5D7BA7E0CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{61878B52-6FED-4B54-873F-6D5D7BA7E0CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{6BE12AB2-8644-4010-9A45-53313F764C04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{6BE12AB2-8644-4010-9A45-53313F764C04}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0FEC8118-6DDD-4300-B449-0619D9E13357}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{6BE12AB2-8644-4010-9A45-53313F764C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BE12AB2-8644-4010-9A45-53313F764C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BE12AB2-8644-4010-9A45-53313F764C04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FEC8118-6DDD-4300-B449-0619D9E13357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FEC8118-6DDD-4300-B449-0619D9E13357}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FEC8118-6DDD-4300-B449-0619D9E13357}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FEC8118-6DDD-4300-B449-0619D9E13357}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

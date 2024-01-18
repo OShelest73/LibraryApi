@@ -1,6 +1,9 @@
 
 using Application.Extensions;
+using Application.Users.Commands.AuthenticateUser;
 using Infrastructure.Extensions;
+using LibraryApi.OptionsSetup;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -21,6 +24,11 @@ public class Program
 
         builder.Services.AddApplication();
         builder.Services.AddDataAccess();
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer();
+
+        builder.Services.ConfigureOptions<JwtOptionsSetup>();
+        builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
         var app = builder.Build();
 
@@ -33,6 +41,7 @@ public class Program
 
         app.UseHttpsRedirection();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
 

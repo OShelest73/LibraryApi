@@ -6,6 +6,7 @@ using Application.Books.Queries.GetBookById;
 using Application.Books.Queries.GetBookByISBN;
 using Application.Dtos.Book;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -14,6 +15,7 @@ namespace LibraryApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class BookController : ControllerBase
 {
     private readonly IMediator _mediator;
