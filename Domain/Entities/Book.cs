@@ -9,7 +9,7 @@ namespace Domain.Entities;
 public class Book
 {
     public int Id { get; set; }
-    public string ISBN { get; set; } = string.Empty;
+    public string Isbn { get; set; } = string.Empty;
     public string Genre { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public string Author { get; set; } = string.Empty;
@@ -31,7 +31,7 @@ public class Book
     public Book(int id, string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime)
     {
         Id = id;
-        ISBN = isbn;
+        Isbn = isbn;
         Genre = genre;
         Description = description;
         Author = author;
@@ -41,7 +41,7 @@ public class Book
 
     public Book(string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime)
     {
-        ISBN = isbn;
+        Isbn = isbn;
         Genre = genre;
         Description = description;
         Author = author;

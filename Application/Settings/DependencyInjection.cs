@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using Application.Abstractions;
+using FluentValidation;
+using Infrastructure.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,7 @@ public static class DependencyInjection
             configuration.RegisterServicesFromAssembly(assembly));
         services.AddValidatorsFromAssembly(assembly);
         services.AddAutoMapper(assembly);
+        services.AddScoped<IJwtProwider, JwtProvider>();
 
         return services;
     }

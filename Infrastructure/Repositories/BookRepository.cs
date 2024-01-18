@@ -33,7 +33,7 @@ public class BookRepository : IBookRepository
 
     public async Task<Book> GetBookByISBN(string ISBN)
     {
-        var result = await _dbContext.Books.FirstOrDefaultAsync(b => b.ISBN == ISBN);
+        var result = await _dbContext.Books.FirstOrDefaultAsync(b => b.Isbn == ISBN);
         return result;
     }
 
@@ -63,6 +63,6 @@ public class BookRepository : IBookRepository
 
     public async Task<bool> IsISBNUnique(string ISBN)
     {
-        return !await _dbContext.Books.AnyAsync(b => b.ISBN == ISBN);
+        return !await _dbContext.Books.AnyAsync(b => b.Isbn == ISBN);
     }
 }

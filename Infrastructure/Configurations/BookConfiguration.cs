@@ -13,9 +13,9 @@ public class BookConfiguration: IEntityTypeConfiguration<Book>
 {
     public void Configure(EntityTypeBuilder<Book> builder)
     {
-        builder.ToTable("books")
+        builder.ToTable("Books")
             .HasKey(b => b.Id);
-        builder.HasAlternateKey(b => b.ISBN);
+        builder.Property(b => b.Isbn).IsRequired();
         builder.Property(b => b.Genre).IsRequired();
         builder.Property(b => b.Description).IsRequired();
         builder.Property(b => b.Author).IsRequired();
