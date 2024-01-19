@@ -11,6 +11,7 @@ If you want to acces database using external applications (like MS SQL Managemen
 - Server name: localhost,8002;
 - Username: sa;
 - Password: password@12345#.
+
 Jwt options are stored in appsettings.json 
 ## Structure
 Api consists of two controllers: for book management (according to requirements) and for user management (wasn't mentioned in requirements so just a few endpoints).
