@@ -51,7 +51,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> CreateBook(CreateBookDto book)
+    public async Task<ActionResult> CreateBook([FromBody] CreateBookDto book)
     {
         var command = new CreateBookCommand(
             book.ISBN,

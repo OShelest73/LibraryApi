@@ -25,7 +25,6 @@ public class GetAllUsersHandler : IRequestHandler<GetAllUsersQuery, List<UserDto
     public async Task<List<UserDto>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
     {
         var users = await _user.GetAllUsers();
-        //mapper for mapper's sake
         var usersDto = _mapper.Map<List<User>, List<UserDto>>(users);
 
         return usersDto;

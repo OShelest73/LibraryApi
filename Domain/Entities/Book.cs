@@ -13,20 +13,8 @@ public class Book
     public string Genre { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public string Author { get; set; } = string.Empty;
-
-    //Getter and setter сonversions if we consider different timezones
-    public DateTime BorrowingTime
-    {
-        get { return BorrowingTime.ToLocalTime(); } 
-        set { BorrowingTime = value.ToUniversalTime(); }
-    }
-
-    //Getter and setter сonversions if we consider different timezones
-    public DateTime ReturnTime
-    {
-        get { return ReturnTime.ToLocalTime(); }
-        set { ReturnTime = value.ToUniversalTime(); }
-    }
+    public DateTime BorrowingTime { get; set; }
+    public DateTime ReturnTime { get; set; }
 
     public Book(int id, string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime)
     {
