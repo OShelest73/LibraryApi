@@ -22,14 +22,10 @@ namespace LibraryApi.Controllers;
 public class BookController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly IValidator<CreateBookCommand> _createValidator;
-    private readonly IValidator<UpdateBookCommand> _updateValidator;
 
-    public BookController(IMediator mediator, IValidator<CreateBookCommand> createValidator, IValidator<UpdateBookCommand> updateValidator)
+    public BookController(IMediator mediator)
     {
-        _mediator = mediator;
-        _createValidator = createValidator;
-        _updateValidator = updateValidator;        
+        _mediator = mediator;        
     }
 
     [HttpGet]
@@ -61,14 +57,15 @@ public class BookController : ControllerBase
             book.BorrowingTime,
             book.ReturnTime);
 
-        var result = await _createValidator.ValidateAsync(command);
-
-        if (!result.IsValid)
+        try
         {
-            return BadRequest(result.ToDictionary());
+            await _mediator.Send(command);
         }
-
-        await _mediator.Send(command);
+        catch(ValidationException ex) 
+        {
+            var errors = ex.Errors.Select(error => new { error.PropertyName, error.ErrorMessage });
+            return BadRequest(errors);
+        }        
 
         return Ok();
     }
@@ -85,14 +82,15 @@ public class BookController : ControllerBase
             book.BorrowingTime,
             book.ReturnTime);
 
-        var result = await _updateValidator.ValidateAsync(command);
-
-        if (!result.IsValid)
+        try
         {
-            return BadRequest(result.ToDictionary());
+            await _mediator.Send(command);
         }
-
-        await _mediator.Send(command);
+        catch (ValidationException ex)
+        {
+            var errors = ex.Errors.Select(error => new { error.PropertyName, error.ErrorMessage });
+            return BadRequest(errors);
+        }
 
         return Ok();
     }
