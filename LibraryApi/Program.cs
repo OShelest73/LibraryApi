@@ -19,6 +19,13 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        IConfiguration configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: false)
+            .Build();
+
+        string connectionString = configuration.GetConnectionString("Default");
+
         // Add services to the container.
 
         builder.Services.AddControllers();
@@ -50,8 +57,9 @@ public class Program
               });
         });
 
+
         builder.Services.AddApplication();
-        builder.Services.AddDataAccess();
+        builder.Services.AddDataAccess(connectionString);
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 
         builder.Services.ConfigureOptions<JwtOptionsSetup>();

@@ -25,9 +25,5 @@ services:
       - 8001:80
     depends_on:
       - libraryapidb
-    environment:
-      - DB_HOST=libraryapidb
-      - DB_NAME=LibraryApiDb
-      - DB_SA_PASSWORD=password@12345#
     networks:
       - backend

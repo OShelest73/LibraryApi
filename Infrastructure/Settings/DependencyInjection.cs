@@ -13,12 +13,8 @@ namespace Infrastructure.Extensions;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddDataAccess(this IServiceCollection services)
-    {
-        var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
-        var dbName = Environment.GetEnvironmentVariable("DB_NAME");
-        var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
-        var connectionString = $"Data Source={dbHost}; Initial Catalog={dbName}; User ID=sa; Password={dbPassword}; TrustServerCertificate=true";
+    public static IServiceCollection AddDataAccess(this IServiceCollection services, string connectionString)
+    {       
         services.AddDbContext<ApplicationDbContext>(options => 
             options.UseSqlServer(connectionString));
 
