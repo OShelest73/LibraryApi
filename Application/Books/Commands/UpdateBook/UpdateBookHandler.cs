@@ -32,6 +32,6 @@ public class UpdateBookHandler : IRequestHandler<UpdateBookCommand>
         }
 
         await _book.UpdateBookAsync(request.Id ,request.ISBN, request.Genre, request.Description,
-            request.Author, request.BorrowingTime, request.ReturnTime);
+            request.Author, request.BorrowingTime, request.ReturnTime, cancellationToken);
     }
 }

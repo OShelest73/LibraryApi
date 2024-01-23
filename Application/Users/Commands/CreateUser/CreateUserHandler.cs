@@ -35,7 +35,7 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand>
 
         string securePassword = CreatePasswordHash(request.Password, out byte[] passwordSalt);
 
-        await _user.CreateUserAsync(request.FullName, request.Email, securePassword, passwordSalt);
+        await _user.CreateUserAsync(request.FullName, request.Email, securePassword, passwordSalt, cancellationToken);
     }
 
     private string CreatePasswordHash(string password, out byte[] passwordSalt)

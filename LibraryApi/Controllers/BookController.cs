@@ -29,25 +29,25 @@ public class BookController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<BookDto>> GetAllBooks()
+    public async Task<List<BookDto>> GetAllBooks(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetAllBooksQuery());
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<BookDto>> GetBookById(int id)
+    public async Task<ActionResult<BookDto>> GetBookById(int id, CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetBookByIdQuery(id));
     }
 
     [HttpGet("isbn/{isbn}")]
-    public async Task<ActionResult<BookDto>> GetBookByISBN(string isbn)
+    public async Task<ActionResult<BookDto>> GetBookByISBN(string isbn, CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetBookByISBNQuery(isbn));
     }
 
     [HttpPost]
-    public async Task<ActionResult> CreateBook([FromBody] CreateBookDto book)
+    public async Task<ActionResult> CreateBook([FromBody] CreateBookDto book, CancellationToken cancellationToken)
     {
         var command = new CreateBookCommand(
             book.ISBN,
@@ -71,7 +71,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateBook(BookDto book)
+    public async Task<ActionResult> UpdateBook(BookDto book, CancellationToken cancellationToken)
     {
         var command = new UpdateBookCommand(
             book.Id,
@@ -96,7 +96,7 @@ public class BookController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    public async Task<ActionResult> DeleteBookById(int id)
+    public async Task<ActionResult> DeleteBookById(int id, CancellationToken cancellationToken)
     {
         await _mediator.Send(new DeleteBookCommand(id));
 

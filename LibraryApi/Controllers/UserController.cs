@@ -27,19 +27,19 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<UserDto>> GetAllUsers()
+    public async Task<List<UserDto>> GetAllUsers(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetAllUsersQuery());
+        return await _mediator.Send(new GetAllUsersQuery(), cancellationToken);
     }
 
     [HttpPost]
-    public async Task<ActionResult> Register([FromBody] RegisterDto registerDto)
+    public async Task<ActionResult> Register([FromBody] RegisterDto registerDto, CancellationToken cancellationToken)
     {
         var command = new CreateUserCommand(registerDto.FullName, registerDto.Email, registerDto.Password);
 
         try
         {
-            await _mediator.Send(command);
+            await _mediator.Send(command, cancellationToken);
         }
         catch (ValidationException ex)
         {
@@ -51,13 +51,13 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult> Login([FromBody] AuthenticationRequest authenticationRequest)
+    public async Task<ActionResult> Login([FromBody] AuthenticationRequest authenticationRequest, CancellationToken cancellationToken)
     {
         var command = new AuthenticateUserCommand(authenticationRequest.Email, authenticationRequest.Password);
 
         try
         {
-            string token = await _mediator.Send(command);
+            string token = await _mediator.Send(command, cancellationToken);
 
             return Ok(token);
         }

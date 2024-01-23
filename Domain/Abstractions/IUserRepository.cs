@@ -9,8 +9,8 @@ namespace Domain.Abstractions;
 
 public interface IUserRepository
 {
-    Task<List<User>> GetAllUsersAsync();
-    Task<User> GetByEmailAsync(string email);
-    Task CreateUserAsync(string fullName, string email, string password, byte[] salt);
+    Task<List<User>> GetAllUsersAsync(CancellationToken cancellationToken);
+    Task<User> GetByEmailAsync(string email, CancellationToken cancellationToken);
+    Task CreateUserAsync(string fullName, string email, string password, byte[] salt, CancellationToken cancellationToken);
     Task<bool> IsEmailUniqueAsync(string email);
 }

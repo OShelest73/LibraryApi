@@ -9,11 +9,11 @@ namespace Domain.Abstractions;
 
 public interface IBookRepository
 {
-    Task<List<Book>> GetAllBooksAsync();
-    Task<Book> GetBookByIdAsync(int id);
-    Task<Book> GetBookByISBNAsync(string ISBN);
-    Task CreateBookAsync(string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime);
-    Task UpdateBookAsync(int id, string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime);
-    Task DeleteBookAsync(int id);
+    Task<List<Book>> GetAllBooksAsync(CancellationToken cancellationToken);
+    Task<Book> GetBookByIdAsync(int id, CancellationToken cancellationToken);
+    Task<Book> GetBookByISBNAsync(string ISBN, CancellationToken cancellationToken);
+    Task CreateBookAsync(string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime, CancellationToken cancellationToken);
+    Task UpdateBookAsync(int id, string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime, CancellationToken cancellationToken);
+    Task DeleteBookAsync(int id, CancellationToken cancellationToken);
     Task<bool> IsISBNUniqueAsync(string ISBN);
 }

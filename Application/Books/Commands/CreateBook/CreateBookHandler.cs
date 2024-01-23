@@ -33,6 +33,6 @@ public class CreateBookHandler: IRequestHandler<CreateBookCommand>
         }
 
         await _book.CreateBookAsync(request.ISBN, request.Genre, request.Description, 
-            request.Author, request.BorrowingTime, request.ReturnTime);
+            request.Author, request.BorrowingTime, request.ReturnTime, cancellationToken);
     }
 }
