@@ -37,28 +37,22 @@ public class BookRepository : IBookRepository
         return result;
     }
 
-    public async Task CreateBookAsync(string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime, CancellationToken cancellationToken)
+    public async Task CreateBookAsync(Book book, CancellationToken cancellationToken)
     {
-        var book = new Book(isbn, genre, description, author, borrowingTime, returnTime);
         await _dbContext.Books.AddAsync(book);
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task UpdateBookAsync(int id, string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime, CancellationToken cancellationToken)
+    public async Task UpdateBookAsync(Book book, CancellationToken cancellationToken)
     {
-        var book = new Book(id, isbn, genre, description, author, borrowingTime, returnTime);
         _dbContext.Update(book);
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task DeleteBookAsync(int id, CancellationToken cancellationToken)
+    public async Task DeleteBookAsync(Book book, CancellationToken cancellationToken)
     {
-        var user = await _dbContext.Books.FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
-        if (user != null)
-        {
-            _dbContext.Remove(user);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
+        _dbContext.Remove(book);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<bool> IsISBNUniqueAsync(string ISBN)

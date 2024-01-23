@@ -49,13 +49,7 @@ public class BookController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> CreateBook([FromBody] CreateBookDto book, CancellationToken cancellationToken)
     {
-        var command = new CreateBookCommand(
-            book.ISBN,
-            book.Genre,
-            book.Description,
-            book.Author,
-            book.BorrowingTime,
-            book.ReturnTime);
+        var command = new CreateBookCommand(book);
 
         try
         {
@@ -73,14 +67,7 @@ public class BookController : ControllerBase
     [HttpPut]
     public async Task<ActionResult> UpdateBook(BookDto book, CancellationToken cancellationToken)
     {
-        var command = new UpdateBookCommand(
-            book.Id,
-            book.ISBN,
-            book.Genre,
-            book.Description,
-            book.Author,
-            book.BorrowingTime,
-            book.ReturnTime);
+        var command = new UpdateBookCommand(book);
 
         try
         {

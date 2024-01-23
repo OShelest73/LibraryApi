@@ -1,4 +1,5 @@
 ﻿using Application.Dtos;
+using Application.Dtos.Book;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -9,5 +10,4 @@ using System.Threading.Tasks;
 
 namespace Application.Books.Commands.Create;
 
-public sealed record CreateBookCommand(string ISBN, string Genre, string Description,
-    string Author, DateTime BorrowingTime, DateTime ReturnTime) : IRequest;
+public sealed record CreateBookCommand(CreateBookDto BookDto) : IRequest;

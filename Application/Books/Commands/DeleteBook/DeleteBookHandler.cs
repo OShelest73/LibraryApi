@@ -20,6 +20,11 @@ public class DeleteBookHandler : IRequestHandler<DeleteBookCommand>
 
     public async Task Handle(DeleteBookCommand request, CancellationToken cancellationToken)
     {
-        await _book.DeleteBookAsync(request.Id, cancellationToken);
+        var book = await _book.GetBookByIdAsync(request.Id, cancellationToken);
+        if (book == null)
+        {
+            return;
+        }
+        await _book.DeleteBookAsync(book, cancellationToken);
     }
 }

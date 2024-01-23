@@ -12,8 +12,8 @@ public interface IBookRepository
     Task<List<Book>> GetAllBooksAsync(CancellationToken cancellationToken);
     Task<Book> GetBookByIdAsync(int id, CancellationToken cancellationToken);
     Task<Book> GetBookByISBNAsync(string ISBN, CancellationToken cancellationToken);
-    Task CreateBookAsync(string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime, CancellationToken cancellationToken);
-    Task UpdateBookAsync(int id, string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime, CancellationToken cancellationToken);
-    Task DeleteBookAsync(int id, CancellationToken cancellationToken);
+    Task CreateBookAsync(Book book, CancellationToken cancellationToken);
+    Task UpdateBookAsync(Book book, CancellationToken cancellationToken);
+    Task DeleteBookAsync(Book book, CancellationToken cancellationToken);
     Task<bool> IsISBNUniqueAsync(string ISBN);
 }

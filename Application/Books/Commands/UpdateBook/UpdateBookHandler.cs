@@ -1,6 +1,7 @@
 ﻿using Application.Books.Commands.Create;
 using AutoMapper;
 using Domain.Abstractions;
+using Domain.Entities;
 using FluentValidation;
 using MediatR;
 using System;
@@ -14,11 +15,13 @@ namespace Application.Books.Commands.UpdateBook;
 public class UpdateBookHandler : IRequestHandler<UpdateBookCommand>
 {
     private readonly IBookRepository _book;
+    private readonly IMapper _mapper;
     private readonly IValidator<UpdateBookCommand> _updateValidator;
 
-    public UpdateBookHandler(IBookRepository book, IValidator<UpdateBookCommand> updateValidator)
+    public UpdateBookHandler(IBookRepository book, IMapper mapper, IValidator<UpdateBookCommand> updateValidator)
     {
         _book = book;
+        _mapper = mapper;
         _updateValidator = updateValidator;
     }
 
@@ -31,7 +34,8 @@ public class UpdateBookHandler : IRequestHandler<UpdateBookCommand>
             throw new ValidationException(validationResult.Errors);
         }
 
-        await _book.UpdateBookAsync(request.Id ,request.ISBN, request.Genre, request.Description,
-            request.Author, request.BorrowingTime, request.ReturnTime, cancellationToken);
+        var book = _mapper.Map<Book>(request.BookDto);
+
+        await _book.UpdateBookAsync(book, cancellationToken);
     }
 }

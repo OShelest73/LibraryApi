@@ -13,13 +13,14 @@ public sealed class CreateBookValidator: AbstractValidator<CreateBookCommand>
 {
     public CreateBookValidator(IBookRepository book)
     {
-        RuleFor(c => c.ISBN).MustAsync(async (ISBN, _) =>
+        RuleFor(c => c.BookDto.Isbn).MustAsync(async (ISBN, _) =>
         {
             return await book.IsISBNUniqueAsync(ISBN);
         }).WithMessage("The ISBN of the book must be unique");
-        RuleFor(c => c.ISBN).MinimumLength(10).WithMessage("ISBN must contain at least 10 characters");
-        RuleFor(c => c.Genre).MinimumLength(1).WithMessage("Genre must contain at least 1 character");
-        RuleFor(c => c.Description).MinimumLength(1).WithMessage("Description must contain at least 1 character");
-        RuleFor(c => c.Author).MinimumLength(1).WithMessage("Author must contain at least 1 character");
+        RuleFor(c => c.BookDto.Isbn).MinimumLength(10).WithMessage("ISBN must contain at least 10 characters");
+        RuleFor(c => c.BookDto.Genre.GenreName).MinimumLength(1).WithMessage("Genre name must contain at least 1 character");
+        RuleFor(c => c.BookDto.Description).MinimumLength(1).WithMessage("Description must contain at least 1 character");
+        RuleFor(c => c.BookDto.Author.FirstName).MinimumLength(1).WithMessage("Author's first name must contain at least 1 character");
+        RuleFor(c => c.BookDto.Author.LastName).MinimumLength(1).WithMessage("Author's last name must contain at least 1 character");
     }
 }
