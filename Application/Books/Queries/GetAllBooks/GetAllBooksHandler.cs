@@ -24,7 +24,7 @@ public class GetAllBooksHandler : IRequestHandler<GetAllBooksQuery, List<BookDto
 
     public async Task<List<BookDto>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
     {
-        var books = await _book.GetAllBooks();
+        var books = await _book.GetAllBooksAsync();
         //mapper for mapper's sake
         var booksDto = _mapper.Map<List<Book>,List<BookDto>>(books);
 

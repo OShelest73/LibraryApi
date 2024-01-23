@@ -25,7 +25,7 @@ public class GetBookByIdHandler: IRequestHandler<GetBookByIdQuery, BookDto>
 
     public async Task<BookDto> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
     {
-        var book = await _book.GetBookById(request.Id);
+        var book = await _book.GetBookByIdAsync(request.Id);
         //mapper for mapper's sake
         var booksDto = _mapper.Map<Book, BookDto>(book);
 

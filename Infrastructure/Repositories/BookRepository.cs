@@ -19,39 +19,39 @@ public class BookRepository : IBookRepository
         _dbContext = dbContext;
     }
 
-    public async Task<List<Book>> GetAllBooks()
+    public async Task<List<Book>> GetAllBooksAsync()
     {
         var result = await _dbContext.Books.AsNoTracking().ToListAsync();
         return result;
     }
 
-    public async Task<Book> GetBookById(int id)
+    public async Task<Book> GetBookByIdAsync(int id)
     {
         var result = await _dbContext.Books.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id);
         return result;
     }
 
-    public async Task<Book> GetBookByISBN(string ISBN)
+    public async Task<Book> GetBookByISBNAsync(string ISBN)
     {
         var result = await _dbContext.Books.AsNoTracking().FirstOrDefaultAsync(b => b.Isbn == ISBN);
         return result;
     }
 
-    public async Task CreateBook(string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime)
+    public async Task CreateBookAsync(string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime)
     {
         var book = new Book(isbn, genre, description, author, borrowingTime, returnTime);
         await _dbContext.Books.AddAsync(book);
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task UpdateBook(int id, string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime)
+    public async Task UpdateBookAsync(int id, string isbn, string genre, string description, string author, DateTime borrowingTime, DateTime returnTime)
     {
         var book = new Book(id, isbn, genre, description, author, borrowingTime, returnTime);
         _dbContext.Update(book);
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteBook(int id)
+    public async Task DeleteBookAsync(int id)
     {
         var user = await _dbContext.Books.FirstOrDefaultAsync(b => b.Id == id);
         if (user != null)
@@ -61,7 +61,7 @@ public class BookRepository : IBookRepository
         }
     }
 
-    public async Task<bool> IsISBNUnique(string ISBN)
+    public async Task<bool> IsISBNUniqueAsync(string ISBN)
     {
         return !await _dbContext.Books.AnyAsync(b => b.Isbn == ISBN);
     }

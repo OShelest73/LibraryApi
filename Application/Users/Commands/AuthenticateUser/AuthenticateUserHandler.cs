@@ -41,7 +41,7 @@ public class AuthenticateUserHandler : IRequestHandler<AuthenticateUserCommand, 
             throw new ValidationException(validationResult.Errors);
         }
 
-        var user = await _user.GetByEmail(request.Email);
+        var user = await _user.GetByEmailAsync(request.Email);
         if (user == null)
         {
             throw new InvalidCredentialsException();

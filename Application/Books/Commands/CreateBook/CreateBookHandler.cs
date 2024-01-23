@@ -32,7 +32,7 @@ public class CreateBookHandler: IRequestHandler<CreateBookCommand>
             throw new ValidationException(validationResult.Errors);
         }
 
-        await _book.CreateBook(request.ISBN, request.Genre, request.Description, 
+        await _book.CreateBookAsync(request.ISBN, request.Genre, request.Description, 
             request.Author, request.BorrowingTime, request.ReturnTime);
     }
 }

@@ -15,7 +15,7 @@ public sealed class CreateUserValidator : AbstractValidator<CreateUserCommand>
     {
         RuleFor(c => c.Email).EmailAddress().MustAsync(async (Email, _) =>
         {
-            return await user.IsEmailUnique(Email);
+            return await user.IsEmailUniqueAsync(Email);
         }).WithMessage("Invalid email address");
         RuleFor(u => u.FullName).MinimumLength(8).WithMessage("Full name must contain at least 8 characters");
         RuleFor(u => u.Password).MinimumLength(6).WithMessage("Password must contain at least 6 character");

@@ -31,7 +31,7 @@ public class UpdateBookHandler : IRequestHandler<UpdateBookCommand>
             throw new ValidationException(validationResult.Errors);
         }
 
-        await _book.UpdateBook(request.Id ,request.ISBN, request.Genre, request.Description,
+        await _book.UpdateBookAsync(request.Id ,request.ISBN, request.Genre, request.Description,
             request.Author, request.BorrowingTime, request.ReturnTime);
     }
 }

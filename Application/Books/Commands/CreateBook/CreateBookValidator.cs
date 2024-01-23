@@ -15,7 +15,7 @@ public sealed class CreateBookValidator: AbstractValidator<CreateBookCommand>
     {
         RuleFor(c => c.ISBN).MustAsync(async (ISBN, _) =>
         {
-            return await book.IsISBNUnique(ISBN);
+            return await book.IsISBNUniqueAsync(ISBN);
         }).WithMessage("The ISBN of the book must be unique");
         RuleFor(c => c.ISBN).MinimumLength(10).WithMessage("ISBN must contain at least 10 characters");
         RuleFor(c => c.Genre).MinimumLength(1).WithMessage("Genre must contain at least 1 character");

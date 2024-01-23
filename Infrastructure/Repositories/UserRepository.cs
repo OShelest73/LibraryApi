@@ -18,20 +18,20 @@ public class UserRepository : IUserRepository
         _dbContext = dbContext;
     }
 
-    public async Task<List<User>> GetAllUsers()
+    public async Task<List<User>> GetAllUsersAsync()
     {
         var result = await _dbContext.Users.AsNoTracking().ToListAsync();
         return result;
     }
 
-    public async Task<User> GetByEmail(string email)
+    public async Task<User> GetByEmailAsync(string email)
     {
         var result = _dbContext.Users.AsNoTracking().FirstOrDefault(u => u.Email == email);
 
         return result;
     }
 
-    public async Task CreateUser(string fullName, string email, string password, byte[] salt)
+    public async Task CreateUserAsync(string fullName, string email, string password, byte[] salt)
     {
         var user = new User(fullName, email, password, salt);
 
@@ -39,7 +39,7 @@ public class UserRepository : IUserRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<bool> IsEmailUnique(string email)
+    public async Task<bool> IsEmailUniqueAsync(string email)
     {
         return !await _dbContext.Users.AnyAsync(u => u.Email == email);
     }
