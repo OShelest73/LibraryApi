@@ -21,19 +21,19 @@ public class BookRepository : IBookRepository
 
     public async Task<List<Book>> GetAllBooks()
     {
-        var result = await _dbContext.Books.ToListAsync();
+        var result = await _dbContext.Books.AsNoTracking().ToListAsync();
         return result;
     }
 
     public async Task<Book> GetBookById(int id)
     {
-        var result = await _dbContext.Books.FindAsync(id);
+        var result = await _dbContext.Books.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id);
         return result;
     }
 
     public async Task<Book> GetBookByISBN(string ISBN)
     {
-        var result = await _dbContext.Books.FirstOrDefaultAsync(b => b.Isbn == ISBN);
+        var result = await _dbContext.Books.AsNoTracking().FirstOrDefaultAsync(b => b.Isbn == ISBN);
         return result;
     }
 

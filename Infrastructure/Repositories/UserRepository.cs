@@ -20,13 +20,13 @@ public class UserRepository : IUserRepository
 
     public async Task<List<User>> GetAllUsers()
     {
-        var result = await _dbContext.Users.ToListAsync();
+        var result = await _dbContext.Users.AsNoTracking().ToListAsync();
         return result;
     }
 
     public async Task<User> GetByEmail(string email)
     {
-        var result = _dbContext.Users.FirstOrDefault(u => u.Email == email);
+        var result = _dbContext.Users.AsNoTracking().FirstOrDefault(u => u.Email == email);
 
         return result;
     }
