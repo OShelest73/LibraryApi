@@ -31,10 +31,8 @@ public class UserRepository : IUserRepository
         return result;
     }
 
-    public async Task CreateUserAsync(string fullName, string email, string password, byte[] salt, CancellationToken cancellationToken)
+    public async Task CreateUserAsync(User user, CancellationToken cancellationToken)
     {
-        var user = new User(fullName, email, password, salt);
-
         await _dbContext.Users.AddAsync(user, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
     }

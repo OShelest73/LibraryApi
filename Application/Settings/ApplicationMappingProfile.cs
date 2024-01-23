@@ -17,5 +17,6 @@ public class ApplicationMappingProfile: Profile
         CreateMap<Book, BookDto>().ReverseMap();
         CreateMap<Book, CreateBookDto>().ReverseMap();
         CreateMap<User, UserDto>().ReverseMap();
+        CreateMap<User, RegisterDto>().ReverseMap();
     }
 }

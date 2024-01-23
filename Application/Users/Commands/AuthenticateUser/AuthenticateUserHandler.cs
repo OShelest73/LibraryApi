@@ -41,12 +41,12 @@ public class AuthenticateUserHandler : IRequestHandler<AuthenticateUserCommand, 
             throw new ValidationException(validationResult.Errors);
         }
 
-        var user = await _user.GetByEmailAsync(request.Email, cancellationToken);
+        var user = await _user.GetByEmailAsync(request.AuthenticationRequest.Email, cancellationToken);
         if (user == null)
         {
             throw new InvalidCredentialsException();
         }
-        if (!VerifyPasswordHash(request.Password, user.Password, user.Salt))
+        if (!VerifyPasswordHash(request.AuthenticationRequest.Password, user.Password, user.Salt))
         {
             throw new InvalidCredentialsException();
         }

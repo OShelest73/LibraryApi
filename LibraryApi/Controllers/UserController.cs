@@ -35,7 +35,7 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> Register([FromBody] RegisterDto registerDto, CancellationToken cancellationToken)
     {
-        var command = new CreateUserCommand(registerDto.FullName, registerDto.Email, registerDto.Password);
+        var command = new CreateUserCommand(registerDto);
 
         try
         {
@@ -53,7 +53,7 @@ public class UserController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult> Login([FromBody] AuthenticationRequest authenticationRequest, CancellationToken cancellationToken)
     {
-        var command = new AuthenticateUserCommand(authenticationRequest.Email, authenticationRequest.Password);
+        var command = new AuthenticateUserCommand(authenticationRequest);
 
         try
         {

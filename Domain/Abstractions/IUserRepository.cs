@@ -11,6 +11,6 @@ public interface IUserRepository
 {
     Task<List<User>> GetAllUsersAsync(CancellationToken cancellationToken);
     Task<User> GetByEmailAsync(string email, CancellationToken cancellationToken);
-    Task CreateUserAsync(string fullName, string email, string password, byte[] salt, CancellationToken cancellationToken);
+    Task CreateUserAsync(User user, CancellationToken cancellationToken);
     Task<bool> IsEmailUniqueAsync(string email);
 }

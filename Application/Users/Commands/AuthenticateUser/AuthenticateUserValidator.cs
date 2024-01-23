@@ -13,7 +13,7 @@ public sealed class AuthenticateUserValidator : AbstractValidator<AuthenticateUs
 {
     public AuthenticateUserValidator()
     {
-        RuleFor(c => c.Email).EmailAddress().WithMessage("Invalid email address");
-        RuleFor(c => c.Password).NotEmpty().WithMessage("Password is required");
+        RuleFor(c => c.AuthenticationRequest.Email).EmailAddress().WithMessage("Invalid email address");
+        RuleFor(c => c.AuthenticationRequest.Password).NotEmpty().WithMessage("Password is required");
     }
 }

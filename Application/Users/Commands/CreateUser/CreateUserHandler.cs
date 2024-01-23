@@ -1,4 +1,5 @@
 ﻿using Application.Books.Commands.Create;
+using AutoMapper;
 using Domain.Abstractions;
 using Domain.Entities;
 using FluentValidation;
@@ -16,11 +17,14 @@ namespace Application.Users.Commands.CreateUser;
 public class CreateUserHandler : IRequestHandler<CreateUserCommand>
 {
     private readonly IUserRepository _user;
+    private readonly IMapper _mapper;
     private readonly IValidator<CreateUserCommand> _createValidator;
 
-    public CreateUserHandler(IUserRepository user, IValidator<CreateUserCommand> createValidator)
+
+    public CreateUserHandler(IUserRepository user, IMapper mapper, IValidator<CreateUserCommand> createValidator)
     {
         _user = user;
+        _mapper = mapper;
         _createValidator = createValidator;
     }
 
@@ -33,9 +37,13 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand>
             throw new ValidationException(validationResult.Errors);
         }
 
-        string securePassword = CreatePasswordHash(request.Password, out byte[] passwordSalt);
+        string securePassword = CreatePasswordHash(request.RegisterDto.Password, out byte[] passwordSalt);
 
-        await _user.CreateUserAsync(request.FullName, request.Email, securePassword, passwordSalt, cancellationToken);
+        var user = _mapper.Map<User>(request.RegisterDto);
+        user.Password = securePassword;
+        user.Salt = passwordSalt;
+
+        await _user.CreateUserAsync(user, cancellationToken);
     }
 
     private string CreatePasswordHash(string password, out byte[] passwordSalt)
