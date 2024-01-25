@@ -3,6 +3,7 @@ using Application.Extensions;
 using Application.Settings;
 using Application.Users.Commands.AuthenticateUser;
 using Infrastructure.Extensions;
+using LibraryApi.Middlewares;
 using LibraryApi.OptionsSetup;
 using LibraryApi.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -41,6 +42,9 @@ public class Program
         builder.Services.ConfigureOptions<JwtOptionsSetup>();
         builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
+        builder.Services.AddLogging();
+        builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -55,6 +59,7 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
 
+        app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
         app.MapControllers();
 
