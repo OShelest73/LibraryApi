@@ -31,19 +31,19 @@ public class BookController : ControllerBase
     [HttpGet]
     public async Task<List<BookDto>> GetAllBooks(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetAllBooksQuery());
+        return await _mediator.Send(new GetAllBooksQuery(), cancellationToken);
     }
 
     [HttpGet("{id:int}")]
     public async Task<ActionResult<BookDto>> GetBookById(int id, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetBookByIdQuery(id));
+        return await _mediator.Send(new GetBookByIdQuery(id), cancellationToken);
     }
 
     [HttpGet("isbn/{isbn}")]
     public async Task<ActionResult<BookDto>> GetBookByISBN(string isbn, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetBookByISBNQuery(isbn));
+        return await _mediator.Send(new GetBookByISBNQuery(isbn), cancellationToken);
     }
 
     [HttpPost]
@@ -53,7 +53,7 @@ public class BookController : ControllerBase
 
         try
         {
-            await _mediator.Send(command);
+            await _mediator.Send(command, cancellationToken);
         }
         catch(ValidationException ex) 
         {
@@ -71,7 +71,7 @@ public class BookController : ControllerBase
 
         try
         {
-            await _mediator.Send(command);
+            await _mediator.Send(command, cancellationToken);
         }
         catch (ValidationException ex)
         {
@@ -85,7 +85,7 @@ public class BookController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteBookById(int id, CancellationToken cancellationToken)
     {
-        await _mediator.Send(new DeleteBookCommand(id));
+        await _mediator.Send(new DeleteBookCommand(id), cancellationToken);
 
         return Ok();
     }
