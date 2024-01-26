@@ -21,12 +21,7 @@ public class ApplicationDbContext : DbContext
     {
         try
         {
-            var databaseCreator = Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
-            if (databaseCreator != null)
-            {
-                if (!databaseCreator.CanConnect()) databaseCreator.Create();
-                if (!databaseCreator.HasTables()) databaseCreator.CreateTables();
-            }
+            Database.Migrate();
         }
         catch (Exception ex)
         {
