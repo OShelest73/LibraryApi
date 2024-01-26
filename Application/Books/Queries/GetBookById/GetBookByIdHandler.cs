@@ -1,4 +1,5 @@
 ﻿using Application.Books.Queries.GetAllBooks;
+using Application.CustomExceptions;
 using Application.Dtos.Book;
 using AutoMapper;
 using Domain.Abstractions;
@@ -26,6 +27,11 @@ public class GetBookByIdHandler: IRequestHandler<GetBookByIdQuery, BookDto>
     public async Task<BookDto> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
     {
         var book = await _book.GetBookByIdAsync(request.Id, cancellationToken);
+
+        if (book == null)
+        {
+            throw new BookNotFoundException();
+        }
         //mapper for mapper's sake
         var booksDto = _mapper.Map<Book, BookDto>(book);
 

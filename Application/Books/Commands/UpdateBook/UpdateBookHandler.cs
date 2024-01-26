@@ -1,4 +1,5 @@
 ﻿using Application.Books.Commands.Create;
+using Application.CustomExceptions;
 using AutoMapper;
 using Domain.Abstractions;
 using Domain.Entities;
@@ -27,6 +28,11 @@ public class UpdateBookHandler : IRequestHandler<UpdateBookCommand>
 
     public async Task Handle(UpdateBookCommand request, CancellationToken cancellationToken)
     {
+        if (!await _book.IsBookExistAsync(request.BookDto.Id))
+        {
+            throw new BookNotFoundException();
+        }
+
         var validationResult = await _updateValidator.ValidateAsync(request);
 
         if (!validationResult.IsValid)

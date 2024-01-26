@@ -4,6 +4,7 @@ using Application.Books.Commands.UpdateBook;
 using Application.Books.Queries.GetAllBooks;
 using Application.Books.Queries.GetBookById;
 using Application.Books.Queries.GetBookByISBN;
+using Application.CustomExceptions;
 using Application.Dtos.Book;
 using Application.Users.Commands.AuthenticateUser;
 using Application.Users.Commands.CreateUser;
@@ -37,13 +38,27 @@ public class BookController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult<BookDto>> GetBookById(int id, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetBookByIdQuery(id), cancellationToken);
+        try
+        {
+            return await _mediator.Send(new GetBookByIdQuery(id), cancellationToken);
+        }
+        catch (BookNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpGet("isbn/{isbn}")]
     public async Task<ActionResult<BookDto>> GetBookByISBN(string isbn, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new GetBookByISBNQuery(isbn), cancellationToken);
+        try
+        {
+            return await _mediator.Send(new GetBookByISBNQuery(isbn), cancellationToken);
+        }
+        catch (BookNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpPost]
@@ -73,6 +88,10 @@ public class BookController : ControllerBase
         {
             await _mediator.Send(command, cancellationToken);
         }
+        catch (BookNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
         catch (ValidationException ex)
         {
             var errors = ex.Errors.Select(error => new { error.PropertyName, error.ErrorMessage });
@@ -85,7 +104,14 @@ public class BookController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteBookById(int id, CancellationToken cancellationToken)
     {
-        await _mediator.Send(new DeleteBookCommand(id), cancellationToken);
+        try
+        {
+            await _mediator.Send(new DeleteBookCommand(id), cancellationToken);
+        }
+        catch (BookNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
 
         return Ok();
     }

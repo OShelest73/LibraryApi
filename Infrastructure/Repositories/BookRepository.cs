@@ -55,6 +55,11 @@ public class BookRepository : IBookRepository
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
+    public async Task<bool> IsBookExistAsync(int id)
+    {
+        return await _dbContext.Books.AnyAsync(b => b.Id == id);
+    }
+
     public async Task<bool> IsISBNUniqueAsync(string ISBN)
     {
         return !await _dbContext.Books.AnyAsync(b => b.Isbn == ISBN);

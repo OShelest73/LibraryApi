@@ -15,5 +15,6 @@ public interface IBookRepository
     Task CreateBookAsync(Book book, CancellationToken cancellationToken);
     Task UpdateBookAsync(Book book, CancellationToken cancellationToken);
     Task DeleteBookAsync(Book book, CancellationToken cancellationToken);
+    Task<bool> IsBookExistAsync(int id);
     Task<bool> IsISBNUniqueAsync(string ISBN);
 }

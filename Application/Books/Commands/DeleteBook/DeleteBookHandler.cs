@@ -1,4 +1,5 @@
 ﻿using Application.Books.Commands.Create;
+using Application.CustomExceptions;
 using Domain.Abstractions;
 using MediatR;
 using System;
@@ -21,10 +22,12 @@ public class DeleteBookHandler : IRequestHandler<DeleteBookCommand>
     public async Task Handle(DeleteBookCommand request, CancellationToken cancellationToken)
     {
         var book = await _book.GetBookByIdAsync(request.Id, cancellationToken);
+
         if (book == null)
         {
-            return;
+            throw new BookNotFoundException();
         }
+
         await _book.DeleteBookAsync(book, cancellationToken);
     }
 }
