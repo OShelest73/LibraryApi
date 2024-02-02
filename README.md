@@ -1,5 +1,5 @@
 # LibraryApi
-.Net web api designed with implementation of DDD and Cqrs with Mediator pattern. Consists of 4 layers: api project (presentation layer) and 3 class libraries (that represents application, domain and infrastructure layers)
+.Net web api designed with implementation of n-layer architectture and Cqrs with Mediator pattern. Consists of 4 layers: api project (presentation layer) and 3 class libraries (that represents application, domain and infrastructure layers)
 ## Prerequisites
 - .Net 7;
 - Docker.
